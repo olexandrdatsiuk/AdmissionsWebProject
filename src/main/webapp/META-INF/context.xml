@@ -1,0 +1,29 @@
+<Context>
+
+    <!--=============================================================
+    maxTotal: the maximum number of active connections that can be
+    allocated from this pool at the same time, negative for no limit.
+    (default 8)
+
+    maxIdle: the maximum number of connections that can remain idle in
+    the pool, without extra ones being released, negative for no limit.
+    (default 8)
+
+    maxWaitMillis: the maximum number of milliseconds that the pool will wait
+    (when there are no available connections) for a connection to be
+    returned before throwing an exception, -1 to wait indefinitely.
+
+    url: the connection URL to be passed to JDBC driver to establish
+    a connection.
+
+    driverClassName: the FQN of the JDBC driver to be used.
+    =============================================================-->
+    <Resource name="jdbc/DB4ADMISSIONS"
+              auth="Container"
+              type="javax.sql.DataSource"
+              maxTotal="100" maxIdle="30" maxWaitMillis="10000"
+              username="root" password="appleBoxVisa20"
+              driverClassName="com.mysql.cj.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/admissions?serverTimezone=UTC"
+    />
+</Context>

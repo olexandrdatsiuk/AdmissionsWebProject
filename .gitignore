@@ -1,0 +1,22 @@
+# Intellij
+.idea/
+target/
+
+# Eclipse
+.classpath
+.project
+
+# IntelliJ
+out/
+
+*.iml
+
+# Apache-tomcat
+apache-tomcat-9.0.37/
+
+### Java ###
+# Compiled class file
+*.class
+
+# Log file
+*.log
