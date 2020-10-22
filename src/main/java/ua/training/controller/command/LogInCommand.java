@@ -2,84 +2,72 @@ package ua.training.controller.command;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ua.training.controller.filter.AuthFilter.Role;
+import ua.training.exception.db.DBException;
+import ua.training.exception.db.UserNotExistsException;
+import ua.training.model.entity.User;
+import ua.training.model.service.UserService;
+import ua.training.util.Crypter;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Objects;
+import javax.servlet.http.HttpSession;
+
+import static ua.training.controller.Attribute.*;
+import static ua.training.controller.FieldConst.*;
+import static ua.training.controller.Message.*;
+import static ua.training.controller.Path.REDIRECTS;
+import static ua.training.controller.Path.REDIRECT_TO_LOG_IN;
+import static ua.training.exception.Message.USER_SERVICE_ERROR;
+import static ua.training.exception.Message.VALIDATION_FAILED;
 
 public class LogInCommand implements Command {
     private static final Logger logger = LogManager.getLogger(LogInCommand.class);
 
-    class User {
-        String name;
-        String pass;
-        Role role;
+    private UserService userService = new UserService();
 
-        public User(String name, String pass, Role role) {
-            this.name = name;
-            this.pass = pass;
-            this.role = role;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            User user = (User) o;
-            return Objects.equals(name, user.name) &&
-                    Objects.equals(pass, user.pass);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(name, pass);
-        }
+    private boolean validate(String email, String pass) {
+        return email == null || pass == null || !email.matches(REGEX_EMAIL)
+                || pass.length() < MIN_PASS_LENGTH || pass.length() > MAX_PASS_LENGTH;
     }
-
 
     @Override
     public String execute(HttpServletRequest req) {
-        logger.debug("LogInCommand.execute");
+        logger.info("Executing LogInCommand");
 
-        String name = req.getParameter("name");
-        String pass = req.getParameter("pass");
+        HttpSession session = req.getSession();
 
-        logger.debug("name [" + name + "]");
-        logger.debug("pass [" + pass + "]");
+        String email = req.getParameter(REQUEST_EMAIL);
+        String pass = req.getParameter(REQUEST_PASS);
+        CommandUtility.setSession(session, email, TRIED_USER_LOGIN);
 
-        if (checkNullAndEmpty(name) || checkNullAndEmpty(pass)) {
-            return "redirect:/login.jsp";
-        }
-        // 2 - admin, 1 - user, 0 - guest
-        User admin = new User("admin", "1", Role.ADMIN);
-        User user = new User("user", "1", Role.USER);
-
-        User now = new User(name, pass, Role.GUEST);
-
-        if (CommandUtility.isUserLogged(req.getSession(), now.name)) {
-            logger.debug("user is already logged");
-            req.setAttribute("home_path", req.getContextPath() + ((Role) req.getSession().getAttribute("role")).getRedirect());
-            return "/WEB-INF/404.jsp";
+        if (validate(email, pass)) {
+            logger.info(VALIDATION_FAILED);
+            CommandUtility.setSession(session, MESSAGE_ACTION_FORM_INCORRECT, SESSION_ERROR_MESSAGE_ACTIVITY);
+            return REDIRECT_TO_LOG_IN;
         }
 
-        if (now.equals(user)) {
-            now.role = user.role;
-            CommandUtility.setSession(req.getSession(), now.role, "role");
-            CommandUtility.setSession(req.getSession(), now.name, "userName");
-            return "redirect:/user/basic.jsp";
+        User user;
+        try {
+            user = userService.loginByEmailAndPass(email, Crypter.cryptWithMD5(pass));
+        } catch (UserNotExistsException e) {
+            logger.error(USER_SERVICE_ERROR, e);
+            CommandUtility.setSession(session, e.getMessage(), SESSION_ERROR_MESSAGE_ACTIVITY);
+            return REDIRECT_TO_LOG_IN;
+        } catch (DBException e) {
+            logger.error(USER_SERVICE_ERROR, e);
+            CommandUtility.setSession(session, MESSAGE_ACTION_APP_EXCEPTION_ERROR, SESSION_ERROR_MESSAGE_ACTIVITY);
+            return REDIRECT_TO_LOG_IN;
         }
 
-        if (now.equals(admin)) {
-            now.role = admin.role;
-            CommandUtility.setSession(req.getSession(), now.role, "role");
-            CommandUtility.setSession(req.getSession(), now.name, "userName");
-            return "redirect:/admin/basic.jsp";
+        if (CommandUtility.isUserLogged(session, user.getEmail())) {
+            logger.info("User is already logged");
+            CommandUtility.setSession(session, MESSAGE_ACTION_FORM_ALREADY_LOGGED, SESSION_ERROR_MESSAGE_ACTIVITY);
+            return REDIRECT_TO_LOG_IN;
         }
 
-        return "redirect:/login.jsp";
-    }
+        CommandUtility.setSession(session, user.getRole(), SESSION_ROLE);
+        CommandUtility.setSession(session, user.getEmail(), SESSION_EMAIL);
+        CommandUtility.setSession(session, user.getId(), SESSION_USER_ID);
 
-    private boolean checkNullAndEmpty(String value) {
-        return value == null || "".equals(value);
+        return REDIRECTS + user.getRole().getRedirect();
     }
 }

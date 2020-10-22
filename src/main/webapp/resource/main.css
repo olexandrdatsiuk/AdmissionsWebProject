@@ -1,0 +1,56 @@
+.navbar-light .navbar-nav .nav-link {
+    color: #007bff;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.navbar-brand {
+    color: #007bff !important;
+}
+
+.navbar-brand:hover {
+    color: black !important;
+}
+
+.nav-link:hover {
+    text-decoration: underline !important;
+}
+
+footer .copyright {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background: #f8f9fa;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    white-space: pre;
+}
+
+footer .copyright span {
+    color: #007bff;
+}
+
+#welcome {
+    background: url('welcome.jpg') center / cover no-repeat;
+    height: 500px;
+}
+
+.profile-tab label {
+    font-weight: 600;
+}
+
+.profile-tab p {
+    font-weight: 600;
+    color: #0062cc;
+}
+
+h3 {
+    text-align: center;
+}
+
+.table_context {
+    text-align: center;
+}

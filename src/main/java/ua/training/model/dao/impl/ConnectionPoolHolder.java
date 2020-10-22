@@ -21,13 +21,9 @@ public class ConnectionPoolHolder {
                     try {
                         InitialContext ctx = new InitialContext();
                         dataSource = (DataSource) ctx.lookup(name);
-                        //todo to close ctx ??
-//                        ctx.close(); // todo close
                     } catch (NamingException e) {
                         String ex = "NamingException is thrown for name: " + name;
-                        logger.fatal("FAILED: " + ex);
-                        throw new IllegalArgumentException("ex", e);
-                        // todo what exception to throw
+                        throw new RuntimeException(ex, e);
                     }
                     logger.debug("Successfully instantiated");
                 }

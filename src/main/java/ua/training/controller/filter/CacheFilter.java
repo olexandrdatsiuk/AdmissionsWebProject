@@ -12,14 +12,30 @@ public class CacheFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        logger.debug("CacheFilter starts... ");
+        logger.debug("Processing of the cache filter starts");
 
         HttpServletResponse resp = (HttpServletResponse) response;
-        resp.setHeader("Cache-Control", "no-cache"); //Forces caches to obtain a new copy of the page from the origin server
-        resp.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
-        resp.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
+
+        resp.setHeader("Cache-Control", "no-cache");
+        resp.setHeader("Cache-Control", "no-store");
+        resp.setDateHeader("Expires", 0);
 
         chain.doFilter(request, response);
+
+        logger.debug("Processing of the cache filter finished");
     }
 
+    @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+        logger.debug("Cache filter initialization starts");
+        // do nothing
+        logger.debug("Cache filter initialization finished");
+    }
+
+    @Override
+    public void destroy() {
+        logger.debug("Cache filter destruction starts");
+        // do nothing
+        logger.debug("Cache filter destruction finished");
+    }
 }

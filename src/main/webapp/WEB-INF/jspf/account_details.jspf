@@ -1,0 +1,28 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="sql" uri="/WEB-INF/taglib.tld" %>
+
+<sql:sqlHandler task="getUserAccDetails" attr="user_acc_details"/>
+<div class="row">
+    <div class="col-md-6"><label><fmt:message key="account.label.email"/></label></div>
+    <div class="col-md-6"><p>${requestScope.user_acc_details.email}</p></div>
+</div>
+<div class="row">
+    <div class="col-md-6"><label><fmt:message key="account.label.firstname"/></label></div>
+    <div class="col-md-6"><p>${requestScope.user_acc_details.account.firstName}</p></div>
+</div>
+<div class="row">
+    <div class="col-md-6"><label><fmt:message key="account.label.lastname"/></label></div>
+    <div class="col-md-6"><p>${requestScope.user_acc_details.account.lastName}</p></div>
+</div>
+<div class="row">
+    <div class="col-md-6"><label><fmt:message key="account.label.middlename"/></label></div>
+    <div class="col-md-6"><p>${requestScope.user_acc_details.account.middleName}</p></div>
+</div>
+<div class="row">
+    <div class="col-md-6"><label><fmt:message key="account.label.city"/></label></div>
+    <div class="col-md-6"><p>${requestScope.user_acc_details.account.city}</p></div>
+</div>
+<div class="row">
+    <div class="col-md-6"><label><fmt:message key="account.label.region"/></label></div>
+    <div class="col-md-6"><p>${requestScope.user_acc_details.account.region}</p></div>
+</div>

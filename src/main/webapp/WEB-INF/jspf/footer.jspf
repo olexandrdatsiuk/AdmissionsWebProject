@@ -1,0 +1,9 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+
+<footer>
+    </div>
+    <div class="copyright">
+        <span><fmt:message key="footer.copyright"/> &copy; 2020 ADMISSIONS WEB PROJECT</span>
+    </div>
+</footer>
