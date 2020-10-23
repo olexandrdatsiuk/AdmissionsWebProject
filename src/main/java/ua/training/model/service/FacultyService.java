@@ -62,9 +62,9 @@ public class FacultyService {
         }
     }
 
-    public Optional<List<Faculty>> findAll() throws DBException {
+    public Optional<List<Faculty>> findAll(String lang) throws DBException {
         try (FacultyDao facultyDao = daoFactory.createFacultyDao()) {
-            return facultyDao.findAll();
+            return facultyDao.findAll(lang);
         }
     }
 

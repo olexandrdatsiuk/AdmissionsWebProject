@@ -47,9 +47,10 @@ public interface FacultyDao extends GenericDao<FacultyDao> {
     /**
      * Finds all faculties in database.
      *
+     * @param lang A String represents user`s language.
      * @return Optional of List of Faculties data
      */
-    Optional<List<Faculty>> findAll();
+    Optional<List<Faculty>> findAll(String lang);
 
     /**
      * Finalises faculty in database.

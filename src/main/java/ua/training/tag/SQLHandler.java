@@ -100,7 +100,7 @@ public class SQLHandler extends TagSupport {
     }
 
     private Optional<List<Faculty>> getAllFaculties() throws DBException {
-        return facultyService.findAll();
+        return facultyService.findAll((String) pageContext.getSession().getAttribute(Attribute.SESSION_LANG));
     }
 
     private Optional<List<University>> getAllUniversities() throws DBException {

@@ -38,11 +38,11 @@ public class JDBCFacultyDao implements FacultyDao {
     }
 
     @Override
-    public Optional<List<Faculty>> findAll() {
+    public Optional<List<Faculty>> findAll(String lang) {
         List<Faculty> fList = new ArrayList<>();
         ResultSet rs = null;
         try (Statement st = conn.createStatement()) {
-            rs = st.executeQuery(FIND_ALL_FACULTIES);
+            rs = st.executeQuery(String.format(FIND_ALL_FACULTIES, lang));
             while (rs.next()) {
                 fList.add(new Faculty.FacultyBuilder()
                         .setId(rs.getInt(1))
