@@ -6,7 +6,7 @@ import ua.training.exception.db.DBException;
 import ua.training.exception.db.UserNotExistsException;
 import ua.training.model.entity.User;
 import ua.training.model.service.UserService;
-import ua.training.util.Crypter;
+import ua.training.util.Encryptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -47,7 +47,7 @@ public class LogInCommand implements Command {
 
         User user;
         try {
-            user = userService.loginByEmailAndPass(email, Crypter.cryptWithMD5(pass));
+            user = userService.loginByEmailAndPass(email, Encryptor.cryptWithMD5(pass));
         } catch (UserNotExistsException e) {
             logger.error(USER_SERVICE_ERROR, e);
             CommandUtility.setSession(session, e.getMessage(), SESSION_ERROR_MESSAGE_ACTIVITY);

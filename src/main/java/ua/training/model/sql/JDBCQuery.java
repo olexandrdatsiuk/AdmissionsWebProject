@@ -3,7 +3,13 @@ package ua.training.model.sql;
 import ua.training.exception.Message;
 
 import java.util.ResourceBundle;
-
+/**
+ * JDBCQuery class contains constants of jdbc queries.
+ *
+ * @author Datsiuk Oleksandr
+ * @version 1.5
+ * @since 1.0
+ */
 public class JDBCQuery {
     private static ResourceBundle rb = ResourceBundle.getBundle("db-queries");
 

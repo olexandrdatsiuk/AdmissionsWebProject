@@ -66,7 +66,6 @@ public class JDBCFacultyDao implements FacultyDao {
 
     @Override
     public Optional<List<Faculty>> findFacultiesForStudent(int userId, String lang) throws SQLException {
-        //todo where to locate setAutoCommit ???
         ResultSet rs = null;
         List<Faculty> userFaculties;
         try (
@@ -166,7 +165,6 @@ public class JDBCFacultyDao implements FacultyDao {
 
     @Override
     public void deleteFromUniversity(int universityId, int facultyId, Request.State state) throws DBException, SQLException {
-        // TODO WHERE TO LOCATE SETaUTOCOMMIT
         try (
                 PreparedStatement ps = conn.prepareStatement(DELETE_FACULTY_FOR_UNIVERSITY);
                 PreparedStatement ps2 = conn.prepareStatement(UPDATE_REQUESTS_WHEN_DELETE_FROM_UNIVERSITY);
@@ -183,6 +181,7 @@ public class JDBCFacultyDao implements FacultyDao {
                 throw new FacultyNotExistsException(MESSAGE_ACTION_FACULTY_NOT_FOUND);
             }
             ps2.executeUpdate();
+            conn.commit();
         } catch (SQLException e) {
             conn.rollback();
             throw new DBException(e);

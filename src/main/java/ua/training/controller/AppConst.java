@@ -1,7 +1,13 @@
 package ua.training.controller;
 
 import ua.training.exception.Message;
-
+/**
+ * AppConst class contains constants ensuring
+ * the correct execution of the program.
+ * @author Datsiuk Oleksandr
+ * @version 1.5
+ * @since 1.0
+ */
 public class AppConst {
     private AppConst() {
         throw new AssertionError(Message.PRIVATE_CONSTRUCTOR_ERROR);

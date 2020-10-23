@@ -61,18 +61,13 @@ public class JDBCSubjectDao implements SubjectDao {
 
     @Override
     public void setSubjectForUser(Subject subject) throws DBException {
-        PreparedStatement ps = null;
-        try {
-            ps = connection.prepareStatement(SET_SUBJECT_FOR_USER);
+        try (PreparedStatement ps = connection.prepareStatement(SET_SUBJECT_FOR_USER)) {
             ps.setInt(1, subject.getPerson_id());
             ps.setInt(2, subject.getId());
             ps.setInt(3, subject.getScore());
-
             ps.executeUpdate();
         } catch (SQLException e) {
             throw new DBException(e);
-        } finally {
-            close(ps);
         }
     }
 

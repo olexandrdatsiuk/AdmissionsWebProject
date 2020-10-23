@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.training.controller.Attribute;
 import ua.training.controller.command.CommandUtility;
+import ua.training.exception.Message;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +40,6 @@ public class LocaleFilter implements Filter {
             CommandUtility.setSession(session, LocaleConst.EN, Attribute.SESSION_LANG);
         } else if (locale.contains(lang)) {
             CommandUtility.setSession(session, lang, Attribute.SESSION_LANG);
-//            resp.sendRedirect(req.getContextPath() + role.getRedirect());
         }
         logger.debug("Processing of the locale filter finished");
         filterChain.doFilter(request, response);
@@ -54,7 +54,7 @@ public class LocaleFilter implements Filter {
 
     private static class LocaleConst {
         private LocaleConst() {
-            throw new AssertionError("This constructor is not for you!");
+            throw new AssertionError(Message.PRIVATE_CONSTRUCTOR_ERROR);
         }
 
         public static final String UA = "ua";

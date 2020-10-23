@@ -3,6 +3,13 @@ package ua.training.model.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a Faculty.
+ *
+ * @author Datsiuk Oleksandr
+ * @version 1.5
+ * @since 1.0
+ */
 public class Faculty {
     private int id;
     private String name;
@@ -64,26 +71,56 @@ public class Faculty {
         }
     }
 
+    /**
+     * Gets the faculty’s id.
+     *
+     * @return A int representing the faculty’s id.
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Gets the faculty’s name.
+     *
+     * @return A String representing the faculty’s first name.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets the faculty’s name in english translation.
+     *
+     * @return A String representing the faculty’s name.
+     */
     public String getNameEn() {
         return nameEn;
     }
 
+    /**
+     * Gets the faculty’s all amount.
+     *
+     * @return A int representing the faculty’s all amount.
+     */
     public int getAllAmount() {
         return allAmount;
     }
 
+    /**
+     * Gets the faculty’s free amount.
+     *
+     * @return A int representing the faculty’s free amount.
+     */
     public int getFreeAmount() {
         return freeAmount;
     }
 
+    /**
+     * Gets the list of the faculty’s subjects.
+     *
+     * @return A List representing of the faculty’s subjects.
+     */
     public List<Subject> getSubjects() {
         return subjects;
     }

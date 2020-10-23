@@ -1,5 +1,12 @@
 package ua.training.model.entity;
 
+/**
+ * Represents an Request.
+ *
+ * @author Datsiuk Oleksandr
+ * @version 1.5
+ * @since 1.0
+ */
 public class Request {
     private String state;
     private Faculty faculty;
@@ -57,22 +64,47 @@ public class Request {
         }
     }
 
+    /**
+     * Gets the request’s state.
+     *
+     * @return A int representing the request’s state.
+     */
     public int getIntState() {
         return intState;
     }
 
+    /**
+     * Gets the request’s user.
+     *
+     * @return A User representing the request’s user.
+     */
     public User getUser() {
         return user;
     }
 
+    /**
+     * Gets the request’s university.
+     *
+     * @return A University representing the request’s university.
+     */
     public University getUniversity() {
         return university;
     }
 
+    /**
+     * Gets the request’s faculty.
+     *
+     * @return A Faculty representing the request’s faculty.
+     */
     public Faculty getFaculty() {
         return faculty;
     }
 
+    /**
+     * Gets the request’s state.
+     *
+     * @return A String representing the request’s state.
+     */
     public String getState() {
         return state;
     }

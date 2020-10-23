@@ -2,6 +2,14 @@ package ua.training.controller;
 
 import ua.training.exception.Message;
 
+/**
+ * Attribute class contains all attribute and parameter names
+ * used for storing and retrieving data
+ * the correct execution of the program.
+ * @author Datsiuk Oleksandr
+ * @version 1.5
+ * @since 1.0
+ */
 public class Attribute {
     private Attribute() {
         throw new AssertionError(Message.PRIVATE_CONSTRUCTOR_ERROR);
@@ -32,6 +40,10 @@ public class Attribute {
     public static final String REQUEST_SUBJECT = "subject";
     public static final String REQUEST_SCORE = "score";
     public static final String REQUEST_ACTION = "action";
+    public static final String REQUEST_SORT = "sort";
+    public static final String REQUEST_START_FROM = "start_from";
+    public static final String REQUEST_LAST_START_FROM = "last_start_from";
+    public static final String REQUEST_BUTTON_NEXT = "button_next";
 
     public static final String SESSION_LANG = "lang";
     public static final String SESSION_ROLE = "role";

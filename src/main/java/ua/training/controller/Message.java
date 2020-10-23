@@ -2,6 +2,13 @@ package ua.training.controller;
 
 import static ua.training.exception.Message.PRIVATE_CONSTRUCTOR_ERROR;
 
+/**
+ * Message class contains constants of action messages
+ * which the user may encounter.
+ * @author Datsiuk Oleksandr
+ * @version 1.5
+ * @since 1.0
+ */
 public class Message {
     private Message() {
         throw new AssertionError(PRIVATE_CONSTRUCTOR_ERROR);

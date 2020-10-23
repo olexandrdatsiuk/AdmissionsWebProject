@@ -2,6 +2,12 @@ package ua.training.controller;
 
 import ua.training.exception.Message;
 
+/**
+ * FieldConst class contains constants used to validate data
+ * @author Datsiuk Oleksandr
+ * @version 1.5
+ * @since 1.0
+ */
 public class FieldConst {
     private FieldConst() {
         throw new AssertionError(Message.PRIVATE_CONSTRUCTOR_ERROR);

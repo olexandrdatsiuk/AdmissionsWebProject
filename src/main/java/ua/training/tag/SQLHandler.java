@@ -16,20 +16,30 @@ import javax.servlet.jsp.tagext.TagSupport;
 import java.sql.SQLException;
 import java.util.*;
 
-import static ua.training.controller.Attribute.SESSION_USER_ID;
-import static ua.training.exception.Message.DAO_EXCEPTION_THROWN;
+import static ua.training.controller.Attribute.*;
+import static ua.training.exception.Message.SQL_HANDLER_TAG_EXCEPTION_THROWN;
 
+/**
+ * SQLHandler class defines new tag handler implementing Tag.
+ * The SQLHandler class intended to be used as retrieving the data through
+ * one of the dao services to for using them in jsp pages. All data puts
+ * in request as attribute with specified name.
+ *
+ * @author Datsiuk Oleksandr
+ * @version 1.5
+ * @since 1.0
+ */
 public class SQLHandler extends TagSupport {
     private static final Logger logger = LogManager.getLogger(SQLHandler.class);
 
     private static final Object ATTRIBUTE_CAP = 1;
+    private static final Optional<?> dataCap = Optional.of(new ArrayList<>());
 
     private UserService userService = new UserService();
     private UniversityService universityService = new UniversityService();
     private FacultyService facultyService = new FacultyService();
     private SubjectService subjectService = new SubjectService();
     private RequestService requestService = new RequestService();
-    private static final Optional<?> dataCap = Optional.of(new ArrayList<>());
 
     private Map<String, Executable> tasks = new HashMap<>();
 
@@ -41,6 +51,9 @@ public class SQLHandler extends TagSupport {
         Optional<?> execute() throws DBException;
     }
 
+    /**
+     * Creates an SQLHandler instance.
+     */
     public SQLHandler() {
         super();
         logger.debug("Handler construction starts");
@@ -57,10 +70,21 @@ public class SQLHandler extends TagSupport {
         logger.debug("Handler construction finished");
     }
 
+    /**
+     * Sets the sql task’s name.
+     *
+     * @param task A String containing the
+     *             name of the task to be executed.
+     */
     public void setTask(String task) {
         this.task = task;
     }
 
+    /**
+     * Sets the attribute.
+     *
+     * @param attr A String containing the name of attribute.
+     */
     public void setAttr(String attr) {
         this.attr = attr;
     }
@@ -70,7 +94,7 @@ public class SQLHandler extends TagSupport {
         try {
             return userService.findAccountDetails(i);
         } catch (DBException e) {
-            logger.error(DAO_EXCEPTION_THROWN, e);
+            logger.error(SQL_HANDLER_TAG_EXCEPTION_THROWN, e);
             return Optional.of(User.EMPTY);
         }
     }
@@ -84,7 +108,7 @@ public class SQLHandler extends TagSupport {
     }
 
     private Optional<List<Faculty>> getFacultiesPerUserByUniversity() throws DBException {
-        String sort = pageContext.getRequest().getParameter("sort");
+        String sort = pageContext.getRequest().getParameter(REQUEST_SORT);
         HttpSession session = pageContext.getSession();
         try {
             return facultyService.findFacultiesForStudent((int) session.getAttribute(SESSION_USER_ID), (String) session.getAttribute(Attribute.SESSION_LANG),
@@ -100,7 +124,7 @@ public class SQLHandler extends TagSupport {
         try {
             return userService.findStudyAccountDetails((int) session.getAttribute(SESSION_USER_ID), (String) session.getAttribute(Attribute.SESSION_LANG));
         } catch (DBException e) {
-            logger.error(DAO_EXCEPTION_THROWN, e);
+            logger.error(SQL_HANDLER_TAG_EXCEPTION_THROWN, e);
             return Optional.of(User.EMPTY);
         }
     }
@@ -127,12 +151,12 @@ public class SQLHandler extends TagSupport {
     private Optional<List<Request>> getAllRequestsWithPagination() throws DBException {
         ServletRequest req = pageContext.getRequest();
         HttpSession session = pageContext.getSession();
-        int startFrom = NumericParser.parseInt(req.getParameter("start_from"));
-        session.setAttribute("last_start_from", startFrom);
+        int startFrom = NumericParser.parseInt(req.getParameter(REQUEST_START_FROM));
+        session.setAttribute(REQUEST_LAST_START_FROM, startFrom);
         Optional<List<Request>> optionalRequests = requestService.findAll(startFrom, (String) session.getAttribute(Attribute.SESSION_LANG));
         List<Request> requests = optionalRequests.get();
         if (requests.size() > FieldConst.MAX_REQUESTS_ON_PAGE) {
-            req.setAttribute("button_next", ATTRIBUTE_CAP);
+            req.setAttribute(REQUEST_BUTTON_NEXT, ATTRIBUTE_CAP);
             requests.remove(requests.size() - 1);
         }
         return optionalRequests;
@@ -151,7 +175,7 @@ public class SQLHandler extends TagSupport {
         try {
             data = tasks.get(task).execute();
         } catch (DBException e) {
-            logger.error(DAO_EXCEPTION_THROWN, e);
+            logger.error(SQL_HANDLER_TAG_EXCEPTION_THROWN, e);
             data = dataCap;
         }
         pageContext.getRequest().setAttribute(attr, data.get());

@@ -68,8 +68,8 @@ public class JDBCUserDao implements UserDao {
             connection.rollback();
             throw new DBException(e);
         } finally {
-            connection.setAutoCommit(true);
             close(keys);
+            connection.setAutoCommit(true);
         }
     }
 

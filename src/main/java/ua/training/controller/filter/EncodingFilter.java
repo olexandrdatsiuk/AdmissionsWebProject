@@ -2,6 +2,7 @@ package ua.training.controller.filter;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ua.training.exception.Message;
 
 import javax.servlet.*;
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class EncodingFilter implements Filter {
 
     private static class EncodingConst {
         private EncodingConst() {
-            throw new AssertionError("This constructor is not for you!");
+            throw new AssertionError(Message.PRIVATE_CONSTRUCTOR_ERROR);
         }
 
         private static final String RESP_CONTENT_TYPE = "text/html";

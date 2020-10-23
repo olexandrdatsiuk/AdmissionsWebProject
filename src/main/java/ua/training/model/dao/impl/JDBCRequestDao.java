@@ -48,13 +48,13 @@ public class JDBCRequestDao implements RequestDao {
     @Override
     public Optional<List<Request>> findAll(int startFrom, String lang) {
         List<Request> requests = new ArrayList<>();
-
+        ResultSet rs = null;
         try (PreparedStatement ps = conn.prepareStatement(String.format(FIND_ALL_REQUESTS, lang))) {
             ps.setInt(1, Request.State.CONSIDERED.getState());
             ps.setInt(2, startFrom);
             ps.setInt(3, maxRequestsFromDb);
 
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 User u = new User.UserBuilder().setId(rs.getInt(1)).setEmail(rs.getString(2)).build();
                 University un = new University(rs.getString(3));
@@ -65,13 +65,15 @@ public class JDBCRequestDao implements RequestDao {
             return Optional.of(requests);
         } catch (SQLException e) {
             logger.error(DAO_EXCEPTION_THROWN, e);
+        } finally {
+            close(rs);
         }
         return Optional.empty();
     }
 
     @Override
     public Optional<List<Request>> findForUser(int userId, String lang) {
-        ResultSet rs;
+        ResultSet rs = null;
         List<Request> requests = new ArrayList<>();
         try (PreparedStatement ps = conn.prepareStatement(String.format(FIND_REQUESTS_FOR_USER, lang))) {
             ps.setInt(1, userId);
@@ -82,6 +84,8 @@ public class JDBCRequestDao implements RequestDao {
             return Optional.of(requests);
         } catch (SQLException e) {
             logger.error(DAO_EXCEPTION_THROWN, e);
+        } finally {
+            close(rs);
         }
         return Optional.empty();
     }

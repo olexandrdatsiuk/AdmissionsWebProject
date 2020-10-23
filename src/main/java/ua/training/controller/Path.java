@@ -2,6 +2,13 @@ package ua.training.controller;
 
 import ua.training.exception.Message;
 
+/**
+ * Path class contains constants paths.
+ *
+ * @author Datsiuk Oleksandr
+ * @version 1.5
+ * @since 1.0
+ */
 public class Path {
     private Path() {
         throw new AssertionError(Message.PRIVATE_CONSTRUCTOR_ERROR);

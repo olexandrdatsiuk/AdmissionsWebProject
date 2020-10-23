@@ -2,7 +2,17 @@ package ua.training.model.entity;
 
 import static ua.training.controller.Path.*;
 
+/**
+ * Represents an User.
+ *
+ * @author Datsiuk Oleksandr
+ * @version 1.5
+ * @since 1.0
+ */
 public class User {
+    /**
+     * Represents the empty User.
+     */
     public static final User EMPTY;
 
     static {
@@ -132,34 +142,74 @@ public class User {
         }
     }
 
+    /**
+     * Updates the user’s password.
+     *
+     * @param pass A String containing the new user’s password.
+     */
     public void updatePassword(String pass) {
         password = pass;
     }
 
+    /**
+     * Gets the user’s id.
+     *
+     * @return A int representing the user’s id.
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Gets the user’s email.
+     *
+     * @return A String representing the user’s email.
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Gets the user’s password.
+     *
+     * @return A String representing the user’s password.
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Gets the user’s status.
+     *
+     * @return A Status representing the user’s status.
+     */
     public Status getStatus() {
         return status;
     }
 
+    /**
+     * Gets the user’s role.
+     *
+     * @return A Role representing the user’s role.
+     */
     public Role getRole() {
         return role;
     }
 
+    /**
+     * Gets the user’s account.
+     *
+     * @return A Account representing the user’s account.
+     */
     public Account getAccount() {
         return account;
     }
 
+    /**
+     * Gets the user’s study account.
+     *
+     * @return A StudyAccount representing the user’s study account.
+     */
     public StudyAccount getStudyAccount() {
         return studyAccount;
     }

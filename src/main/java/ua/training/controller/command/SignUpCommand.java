@@ -8,7 +8,7 @@ import ua.training.model.entity.StudyAccount;
 import ua.training.model.entity.University;
 import ua.training.model.entity.User;
 import ua.training.model.service.UserService;
-import ua.training.util.Crypter;
+import ua.training.util.Encryptor;
 import ua.training.util.NumericParser;
 
 import javax.servlet.http.HttpServletRequest;
@@ -81,7 +81,7 @@ public class SignUpCommand implements Command {
             return REDIRECT_TO_SIGN_UP;
         }
 
-        user.updatePassword(Crypter.cryptWithMD5(user.getPassword()));
+        user.updatePassword(Encryptor.cryptWithMD5(user.getPassword()));
 
         HttpSession session = req.getSession();
         session.setAttribute(TRIED_USER_SIGNUP, user);

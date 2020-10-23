@@ -10,7 +10,8 @@ import ua.training.util.NumericParser;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import static ua.training.controller.Attribute.*;
+import static ua.training.controller.Attribute.REQUEST_FACULTY;
+import static ua.training.controller.Attribute.SESSION_ERROR_MESSAGE_ACTIVITY;
 import static ua.training.controller.Message.*;
 import static ua.training.controller.Path.REDIRECT_TO_APPLY;
 import static ua.training.exception.Message.REQUEST_SERVICE_ERROR;
