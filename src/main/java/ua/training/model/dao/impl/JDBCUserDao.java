@@ -83,7 +83,7 @@ public class JDBCUserDao implements UserDao {
             rs = ps.executeQuery();
             rs.next();
 
-            StudyAccount studyAccount = new StudyAccount(new University(rs.getString(1)), rs.getInt(2));
+            StudyAccount studyAccount = new StudyAccount(new University(rs.getString(1)), rs.getFloat(2));
             User user = new User.UserBuilder().setStudyAccount(studyAccount).build();
             return Optional.ofNullable(user);
         } catch (SQLException e) {
