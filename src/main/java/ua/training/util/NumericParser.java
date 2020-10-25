@@ -37,6 +37,7 @@ public class NumericParser {
      * @param s A String containing the value to parse.
      * @return A float representing the parsed value or 0,
      * if the NumberFormatException is thrown
+     * @throws NullPointerException  - if param is null
      */
     public static float parseFloat(String s) {
         try {

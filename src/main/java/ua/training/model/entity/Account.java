@@ -128,16 +128,4 @@ public class Account {
     public String getRegion() {
         return region;
     }
-
-    @Override
-    public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", middleName='" + middleName + '\'' +
-                ", city='" + city + '\'' +
-                ", region='" + region + '\'' +
-                '}';
-    }
 }

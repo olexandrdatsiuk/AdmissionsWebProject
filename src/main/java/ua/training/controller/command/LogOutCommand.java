@@ -3,7 +3,7 @@ package ua.training.controller.command;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.training.controller.Attribute;
-import ua.training.model.entity.User.Role;
+import ua.training.model.enumeration.UserRole;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,7 +15,7 @@ public class LogOutCommand implements Command {
     @Override
     public String execute(HttpServletRequest request) {
         logger.info("Executing LogOutCommand");
-        CommandUtility.setSession(request.getSession(), Role.GUEST, Attribute.SESSION_ROLE);
+        CommandUtility.setSession(request.getSession(), UserRole.GUEST, Attribute.SESSION_ROLE);
         CommandUtility.removeFromLoggedUsers(request.getSession(), (String) request.getSession().getAttribute(Attribute.SESSION_EMAIL));
         return REDIRECT_TO_LOG_IN;
     }

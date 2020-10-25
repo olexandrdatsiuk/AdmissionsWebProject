@@ -1,6 +1,7 @@
 package ua.training.model.entity;
 
-import static ua.training.controller.Path.*;
+import ua.training.model.enumeration.UserRole;
+import ua.training.model.enumeration.UserStatus;
 
 /**
  * Represents an User.
@@ -16,7 +17,7 @@ public class User {
     public static final User EMPTY;
 
     static {
-        EMPTY = new UserBuilder().setId(0).setRole(Role.GUEST).setEmail("").setPassword("").setStatus(Status.UNBLOCKED)
+        EMPTY = new UserBuilder().setId(0).setRole(UserRole.GUEST).setEmail("").setPassword("").setStatus(UserStatus.UNBLOCKED)
                 .setStudyAccount(StudyAccount.EMPTY)
                 .setAccount(Account.EMPTY)
                 .build();
@@ -25,8 +26,8 @@ public class User {
     private int id;
     private String email;
     private String password;
-    private Status status;
-    private Role role;
+    private UserStatus status;
+    private UserRole role;
     private Account account;
     private StudyAccount studyAccount;
 
@@ -44,8 +45,8 @@ public class User {
         private int id;
         private String email;
         private String password;
-        private Status status;
-        private Role role;
+        private UserStatus status;
+        private UserRole role;
         private Account account;
         private StudyAccount studyAccount;
 
@@ -64,12 +65,12 @@ public class User {
             return this;
         }
 
-        public UserBuilder setStatus(Status status) {
+        public UserBuilder setStatus(UserStatus status) {
             this.status = status;
             return this;
         }
 
-        public UserBuilder setRole(Role role) {
+        public UserBuilder setRole(UserRole role) {
             this.role = role;
             return this;
         }
@@ -89,58 +90,6 @@ public class User {
         }
     }
 
-    public enum Status {
-        BLOCKED(1),
-        UNBLOCKED(2);
-
-        private int status;
-
-        Status(int s) {
-            status = s;
-        }
-
-        public int getStatus() {
-            return status;
-        }
-    }
-
-    public enum Role {
-        GUEST(0, "", INDEX),
-        USER(1, DIR_USER, USER_BASIC_PATH),
-        ADMIN(2, DIR_ADMIN, ADMIN_BASIC_PATH);
-
-        private int role;
-        private String directory;
-        private String redirect;
-
-
-        Role(int r, String dir, String red) {
-            role = r;
-            directory = dir;
-            redirect = "/" + red;
-        }
-
-        public int getRole() {
-            return role;
-        }
-
-        public String getDirectory() {
-            return directory;
-        }
-
-        public String getRedirect() {
-            return redirect;
-        }
-
-        public static Role getRoleByNumber(int number) {
-            for (Role r : Role.values()) {
-                if (r.role == number) {
-                    return r;
-                }
-            }
-            return GUEST;
-        }
-    }
 
     /**
      * Updates the user’s password.
@@ -181,9 +130,9 @@ public class User {
     /**
      * Gets the user’s status.
      *
-     * @return A Status representing the user’s status.
+     * @return A UserStatus representing the user’s status.
      */
-    public Status getStatus() {
+    public UserStatus getStatus() {
         return status;
     }
 
@@ -192,7 +141,7 @@ public class User {
      *
      * @return A Role representing the user’s role.
      */
-    public Role getRole() {
+    public UserRole getRole() {
         return role;
     }
 
@@ -212,18 +161,5 @@ public class User {
      */
     public StudyAccount getStudyAccount() {
         return studyAccount;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", status=" + status +
-                ", role=" + role +
-                ", account=" + account +
-                ", studyAccount=" + studyAccount +
-                '}';
     }
 }

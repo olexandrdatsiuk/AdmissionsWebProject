@@ -3,7 +3,7 @@ package ua.training.controller.command;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.training.exception.db.DBException;
-import ua.training.model.entity.Request;
+import ua.training.model.enumeration.RequestState;
 import ua.training.model.service.RequestService;
 import ua.training.util.NumericParser;
 
@@ -34,7 +34,7 @@ public class ChangeRequestStateCommand implements Command {
                 (userId = NumericParser.parseInt(req.getParameter(REQUEST_USER_ID))) == PARSE_NUMBER_FAILED
                         || (facultyId = NumericParser.parseInt(req.getParameter(REQUEST_FACULTY_ID))) == PARSE_NUMBER_FAILED
                         || (state = NumericParser.parseInt(req.getParameter(REQUEST_STATE))) == PARSE_NUMBER_FAILED
-                        || state < Request.State.REJECTED.getState() || state > Request.State.ACCEPTED.getState()
+                        || state < RequestState.REJECTED.getState() || state > RequestState.ACCEPTED.getState()
 
         ) {
             logger.info(VALIDATION_FAILED);

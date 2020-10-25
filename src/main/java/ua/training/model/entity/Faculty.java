@@ -16,7 +16,6 @@ public class Faculty {
     private String nameEn;
     private int allAmount;
     private int freeAmount;
-    private int paidAmount;
     private List<Subject> subjects = new ArrayList<>();
 
     private Faculty(FacultyBuilder fb) {
@@ -25,7 +24,6 @@ public class Faculty {
         this.nameEn = fb.nameEn;
         this.allAmount = fb.allAmount;
         this.freeAmount = fb.freeAmount;
-        this.paidAmount = fb.paidAmount;
     }
 
     public static class FacultyBuilder {
@@ -34,12 +32,6 @@ public class Faculty {
         private String nameEn;
         private int allAmount;
         private int freeAmount;
-        private int paidAmount;
-
-        public FacultyBuilder setPaidAmount(int paidAmount) {
-            this.paidAmount = paidAmount;
-            return this;
-        }
 
         public FacultyBuilder setNameEn(String nameEn) {
             this.nameEn = nameEn;
@@ -83,7 +75,7 @@ public class Faculty {
     /**
      * Gets the faculty’s name.
      *
-     * @return A String representing the faculty’s first name.
+     * @return A String representing the faculty’s name.
      */
     public String getName() {
         return name;
@@ -92,7 +84,7 @@ public class Faculty {
     /**
      * Gets the faculty’s name in english translation.
      *
-     * @return A String representing the faculty’s name.
+     * @return A String representing the translated faculty’s name.
      */
     public String getNameEn() {
         return nameEn;
@@ -123,16 +115,5 @@ public class Faculty {
      */
     public List<Subject> getSubjects() {
         return subjects;
-    }
-
-    @Override
-    public String toString() {
-        return "Faculty{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", nameEn='" + nameEn + '\'' +
-                ", allAmount=" + allAmount +
-                ", freeAmount=" + freeAmount +
-                '}';
     }
 }

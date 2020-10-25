@@ -65,7 +65,7 @@ public class Servlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String resource = req.getRequestURI().replaceAll(REGEX_REMOVE_APP_DIRECTORY, "");
         if (resource.startsWith(RESOURCE)) {
             loadResource(resp, resource);
@@ -87,6 +87,7 @@ public class Servlet extends HttpServlet {
         logger.info("command: " + path + " - " + command.getClass().getName());
 
         String page = command.execute(req);
+        System.out.println(page + " -page <<<<<<<<<<<");
         if (page.contains(Path.REDIRECT)) {
             logger.info("Sending " + page);
             resp.sendRedirect(page.replaceAll(Path.REDIRECT, CONTEXT));

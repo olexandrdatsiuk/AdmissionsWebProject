@@ -109,34 +109,4 @@ public class Request {
         return state;
     }
 
-    public enum State {
-        CONSIDERED(1),
-        REJECTED(2, "enum.request.state.reject"),
-        ACCEPTED(3, "enum.request.state.accept"),
-        NOT_CREDITED(4),
-        CREDITED_TO_BUDGET(5),
-        ENROLLED_IN_CONTRACT(6);
-
-        private int state;
-        private String key;
-
-        State(int s) {
-            state = s;
-            key = "";
-        }
-
-        State(int state, String key) {
-            this.state = state;
-            this.key = key;
-        }
-
-        public String getKey() {
-            return key;
-        }
-
-        public int getState() {
-            return state;
-        }
-
-    }
 }

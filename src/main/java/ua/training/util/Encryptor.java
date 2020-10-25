@@ -1,5 +1,7 @@
 package ua.training.util;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import ua.training.exception.Message;
 
 import java.security.MessageDigest;
@@ -13,6 +15,8 @@ import java.security.NoSuchAlgorithmException;
  * @since 1.0
  */
 public class Encryptor {
+    private static final Logger logger = LogManager.getLogger(Encryptor.class);
+
     private Encryptor() {
         throw new AssertionError(Message.PRIVATE_CONSTRUCTOR_ERROR);
     }
@@ -38,9 +42,8 @@ public class Encryptor {
             for (byte b : digest) {
                 hash.append(String.format("%02X", b));
             }
-        } catch (NoSuchAlgorithmException e) {
-            // do nothing
-            // todo logger
+        } catch (NoSuchAlgorithmException ignored) {
+            logger.error(Message.EXCEPTION_THROWN);
         }
         return hash.toString();
     }

@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 import ua.training.controller.Attribute;
 import ua.training.exception.db.DBException;
 import ua.training.exception.db.UserNotExistsException;
-import ua.training.model.entity.User;
+import ua.training.model.enumeration.UserStatus;
 import ua.training.model.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +34,7 @@ public class UnBlockUserCommand implements Command {
             return REDIRECT_TO_UNBLOCK;
         }
         try {
-            userService.changeStatus(email, User.Status.UNBLOCKED, (int) req.getSession().getAttribute(Attribute.SESSION_USER_ID));
+            userService.changeStatus(email, UserStatus.UNBLOCKED, (int) req.getSession().getAttribute(Attribute.SESSION_USER_ID));
         } catch (UserNotExistsException e) {
             logger.error(REQUEST_SERVICE_ERROR, e);
             CommandUtility.setSession(req.getSession(), MESSAGE_ACTION_USER_NOT_FOUND, SESSION_ERROR_MESSAGE_ACTIVITY);

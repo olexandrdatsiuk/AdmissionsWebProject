@@ -2,8 +2,8 @@ package ua.training.model.dao;
 
 import ua.training.exception.db.DBException;
 import ua.training.model.entity.Faculty;
-import ua.training.model.entity.Request;
 import ua.training.model.enumeration.FacultyComparator;
+import ua.training.model.enumeration.RequestState;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -97,7 +97,7 @@ public interface FacultyDao extends GenericDao<FacultyDao> {
      * @throws SQLException - if FacultyNotExistsException is thrown.
      * @throws DBException  - if a database access error occurs.
      */
-    void deleteFromUniversity(int universityId, int facultyId, Request.State state) throws DBException, SQLException;
+    void deleteFromUniversity(int universityId, int facultyId, RequestState state) throws DBException, SQLException;
 
     /**
      * Finds faculties for student in database and sorts them.

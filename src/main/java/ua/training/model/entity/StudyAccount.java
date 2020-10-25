@@ -49,11 +49,4 @@ public class StudyAccount {
         return averageScore;
     }
 
-    @Override
-    public String toString() {
-        return "StudyAccount{" +
-                "averageScore=" + averageScore +
-                ", university=" + university +
-                '}';
-    }
 }

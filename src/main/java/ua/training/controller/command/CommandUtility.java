@@ -3,7 +3,7 @@ package ua.training.controller.command;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.training.exception.Message;
-import ua.training.model.entity.User.Role;
+import ua.training.model.enumeration.UserRole;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -19,15 +19,15 @@ public class CommandUtility {
         throw new AssertionError(Message.PRIVATE_CONSTRUCTOR_ERROR);
     }
 
-    public static Role getUserRole(HttpServletRequest request) {
+    public static UserRole getUserRole(HttpServletRequest request) {
         logger.info("Getting user`s role");
         HttpSession session = request.getSession();
         Object roleFromSession = session.getAttribute(SESSION_ROLE);
         if (roleFromSession == null) {
-            setSession(session, Role.GUEST, SESSION_ROLE);
-            return Role.GUEST;
+            setSession(session, UserRole.GUEST, SESSION_ROLE);
+            return UserRole.GUEST;
         }
-        return (Role) roleFromSession;
+        return (UserRole) roleFromSession;
     }
 
     public static void setSession(HttpSession session, Object o, String attr) {

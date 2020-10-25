@@ -8,6 +8,7 @@ import ua.training.model.entity.Faculty;
 import ua.training.model.entity.Request;
 import ua.training.model.entity.University;
 import ua.training.model.entity.User;
+import ua.training.model.enumeration.RequestState;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -50,7 +51,7 @@ public class JDBCRequestDao implements RequestDao {
         List<Request> requests = new ArrayList<>();
         ResultSet rs = null;
         try (PreparedStatement ps = conn.prepareStatement(String.format(FIND_ALL_REQUESTS, lang))) {
-            ps.setInt(1, Request.State.CONSIDERED.getState());
+            ps.setInt(1, RequestState.CONSIDERED.getState());
             ps.setInt(2, startFrom);
             ps.setInt(3, maxRequestsFromDb);
 

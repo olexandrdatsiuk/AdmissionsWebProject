@@ -22,9 +22,10 @@ public class RegexHelper {
      *
      * @param regex A String containing regular expression.
      * @param str   A String for matching.
-     * @return A String representing single matched value or empty String
+     * @return A String representing single matched value by group 1 or empty String
      * if no matches.
      * @throws IllegalArgumentException - if one of the parameters is null.
+     * @throws IndexOutOfBoundsException - if no group 1.
      */
 
     public static String getStrWithRegex(String regex, String str) {

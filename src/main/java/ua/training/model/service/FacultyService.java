@@ -4,8 +4,8 @@ import ua.training.exception.db.DBException;
 import ua.training.model.dao.DaoFactory;
 import ua.training.model.dao.FacultyDao;
 import ua.training.model.entity.Faculty;
-import ua.training.model.entity.Request;
 import ua.training.model.enumeration.FacultyComparator;
+import ua.training.model.enumeration.RequestState;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.Optional;
 public class FacultyService {
     private DaoFactory daoFactory = DaoFactory.getInstance();
 
-    public void deleteFromUniversity(int universityId, int facultyId, Request.State state) throws DBException, SQLException {
+    public void deleteFromUniversity(int universityId, int facultyId, RequestState state) throws DBException, SQLException {
         try (FacultyDao facultyDao = daoFactory.createFacultyDao()) {
             facultyDao.deleteFromUniversity(universityId, facultyId, state);
         }

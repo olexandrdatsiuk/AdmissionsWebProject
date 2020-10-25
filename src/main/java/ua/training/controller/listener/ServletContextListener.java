@@ -3,8 +3,8 @@ package ua.training.controller.listener;
 import com.mysql.cj.jdbc.AbandonedConnectionCleanupThread;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import ua.training.model.entity.Request;
 import ua.training.model.enumeration.FacultyComparator;
+import ua.training.model.enumeration.RequestState;
 import ua.training.model.enumeration.UniversityAction;
 
 import javax.servlet.ServletContextEvent;
@@ -20,7 +20,7 @@ public class ServletContextListener implements javax.servlet.ServletContextListe
     public void contextInitialized(ServletContextEvent sce) {
         logger.debug("Context listener initialization starts");
         sce.getServletContext().setAttribute(CONTEXT_LOGGED_USERS, new HashSet<String>());
-        sce.getServletContext().setAttribute(CONTEXT_REQUEST_STATES, Arrays.asList(Request.State.REJECTED, Request.State.ACCEPTED));
+        sce.getServletContext().setAttribute(CONTEXT_REQUEST_STATES, Arrays.asList(RequestState.REJECTED, RequestState.ACCEPTED));
         sce.getServletContext().setAttribute(CONTEXT_FACULTY_COMPARATOR, FacultyComparator.values());
         sce.getServletContext().setAttribute(CONTEXT_UNIVERSITY_ACTION, UniversityAction.values());
         logger.debug("Context listener initialization finished");

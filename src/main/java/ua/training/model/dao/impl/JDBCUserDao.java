@@ -9,6 +9,8 @@ import ua.training.model.entity.Account;
 import ua.training.model.entity.StudyAccount;
 import ua.training.model.entity.University;
 import ua.training.model.entity.User;
+import ua.training.model.enumeration.UserRole;
+import ua.training.model.enumeration.UserStatus;
 
 import java.sql.*;
 import java.util.Optional;
@@ -104,14 +106,14 @@ public class JDBCUserDao implements UserDao {
             if (!rs.next()) {
                 throw new UserNotExistsException(MESSAGE_ACTION_FORM_INCORRECT_LOGIN_DATA);
             }
-            if (rs.getInt(4) == User.Status.BLOCKED.getStatus()) {
+            if (rs.getInt(4) == UserStatus.BLOCKED.getStatus()) {
                 throw new UserNotExistsException(MESSAGE_ACTION_FORM_BLOCKED_USER);
             }
 
             return new User.UserBuilder()
                     .setId(rs.getInt(1))
                     .setEmail(rs.getString(2))
-                    .setRole(User.Role.getRoleByNumber(rs.getInt(3)))
+                    .setRole(UserRole.getRoleByNumber(rs.getInt(3)))
                     .build();
         } catch (SQLException e) {
             throw new DBException(e);
@@ -145,7 +147,7 @@ public class JDBCUserDao implements UserDao {
     }
 
     @Override
-    public void changeStatus(String email, User.Status status, int userId) throws DBException {
+    public void changeStatus(String email, UserStatus status, int userId) throws DBException {
         try (PreparedStatement ps = connection.prepareStatement(BLOCK_USER_BY_EMAIL)) {
             ps.setInt(1, status.getStatus());
             ps.setString(2, email);

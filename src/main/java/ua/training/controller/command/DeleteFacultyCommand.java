@@ -3,7 +3,7 @@ package ua.training.controller.command;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ua.training.exception.db.DBException;
-import ua.training.model.entity.Request;
+import ua.training.model.enumeration.RequestState;
 import ua.training.model.service.FacultyService;
 import ua.training.util.NumericParser;
 
@@ -38,7 +38,7 @@ public class DeleteFacultyCommand implements Command {
             facultyService.deleteFromUniversity(
                     universityId,
                     facultyId,
-                    Request.State.REJECTED
+                    RequestState.REJECTED
             );
             CommandUtility.setSession(req.getSession(), MESSAGE_ACTION_FACULTY_DELETED, SESSION_ERROR_MESSAGE_ACTIVITY);
         } catch (DBException | SQLException e) {

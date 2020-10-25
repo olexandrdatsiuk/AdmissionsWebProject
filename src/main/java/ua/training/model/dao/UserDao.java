@@ -2,6 +2,7 @@ package ua.training.model.dao;
 
 import ua.training.exception.db.DBException;
 import ua.training.model.entity.User;
+import ua.training.model.enumeration.UserStatus;
 
 import java.sql.SQLException;
 import java.util.Optional;
@@ -54,11 +55,11 @@ public interface UserDao extends GenericDao<UserDao> {
      * Changes User`s status in database.
      *
      * @param email  A String represents user`s email.
-     * @param status A Status represents user status.
+     * @param status A UserStatus represents user status.
      * @param userId An int represents unique user`s id.
      * @throws SQLException - if a database access error occurs
      * @throws DBException  - if a database already contains an unique element.
      */
-    void changeStatus(String email, User.Status status, int userId) throws DBException;
+    void changeStatus(String email, UserStatus status, int userId) throws DBException;
 
 }

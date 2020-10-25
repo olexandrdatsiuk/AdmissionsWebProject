@@ -42,10 +42,10 @@ public class JDBCSubjectDao implements SubjectDao {
     public Optional<List<Subject>> findSubjectsUserNotHave(int userId, String lang) {
         List<Subject> fList = new ArrayList<>();
         ResultSet rs = null;
-        try (PreparedStatement st = connection.prepareStatement(String.format(SUBJECTS_FOR_USER_NOT_HAVE, lang))
+        try (PreparedStatement ps = connection.prepareStatement(String.format(SUBJECTS_FOR_USER_NOT_HAVE, lang))
         ) {
-            st.setInt(1, userId);
-            rs = st.executeQuery();
+            ps.setInt(1, userId);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 fList.add(new Subject(rs.getInt(1), rs.getString(2)));
             }

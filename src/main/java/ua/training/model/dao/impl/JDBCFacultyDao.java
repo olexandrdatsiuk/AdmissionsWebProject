@@ -6,9 +6,9 @@ import ua.training.exception.db.DBException;
 import ua.training.exception.db.FacultyNotExistsException;
 import ua.training.model.dao.FacultyDao;
 import ua.training.model.entity.Faculty;
-import ua.training.model.entity.Request;
 import ua.training.model.entity.Subject;
 import ua.training.model.enumeration.FacultyComparator;
+import ua.training.model.enumeration.RequestState;
 
 import java.sql.*;
 import java.util.*;
@@ -145,9 +145,9 @@ public class JDBCFacultyDao implements FacultyDao {
     public List<Faculty> findFacultiesForUniversityNotHave(int universityId, String lang) {
         List<Faculty> fList = new ArrayList<>();
         ResultSet rs = null;
-        try (PreparedStatement st = conn.prepareStatement(String.format(FACULTIES_FOR_UNIVERSITY_NOT_HAVE, lang))) {
-            st.setInt(1, universityId);
-            rs = st.executeQuery();
+        try (PreparedStatement ps = conn.prepareStatement(String.format(FACULTIES_FOR_UNIVERSITY_NOT_HAVE, lang))) {
+            ps.setInt(1, universityId);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 fList.add(new Faculty.FacultyBuilder()
                         .setId(rs.getInt(1))
@@ -164,7 +164,7 @@ public class JDBCFacultyDao implements FacultyDao {
 
 
     @Override
-    public void deleteFromUniversity(int universityId, int facultyId, Request.State state) throws DBException, SQLException {
+    public void deleteFromUniversity(int universityId, int facultyId, RequestState state) throws DBException, SQLException {
         try (
                 PreparedStatement ps = conn.prepareStatement(DELETE_FACULTY_FOR_UNIVERSITY);
                 PreparedStatement ps2 = conn.prepareStatement(UPDATE_REQUESTS_WHEN_DELETE_FROM_UNIVERSITY);
@@ -192,12 +192,12 @@ public class JDBCFacultyDao implements FacultyDao {
 
     @Override
     public void setFacultyForUniversity(int universityId, Faculty faculty) throws DBException {
-        try (PreparedStatement psForFacultyForUniversity = conn.prepareStatement(INSERT_INTO_UNIVERSITY_HAS_FACULTY)) {
-            psForFacultyForUniversity.setInt(1, universityId);
-            psForFacultyForUniversity.setInt(2, faculty.getId());
-            psForFacultyForUniversity.setInt(3, faculty.getAllAmount());
-            psForFacultyForUniversity.setInt(4, faculty.getFreeAmount());
-            if (psForFacultyForUniversity.executeUpdate() == 0) {
+        try (PreparedStatement ps = conn.prepareStatement(INSERT_INTO_UNIVERSITY_HAS_FACULTY)) {
+            ps.setInt(1, universityId);
+            ps.setInt(2, faculty.getId());
+            ps.setInt(3, faculty.getAllAmount());
+            ps.setInt(4, faculty.getFreeAmount());
+            if (ps.executeUpdate() == 0) {
                 throw new DBException();
             }
         } catch (SQLException e) {
@@ -209,9 +209,9 @@ public class JDBCFacultyDao implements FacultyDao {
     public List<Faculty> findFacultiesForUniversity(int universityId, String lang) {
         List<Faculty> fList = new ArrayList<>();
         ResultSet rs = null;
-        try (PreparedStatement st = conn.prepareStatement(String.format(FACULTIES_FOR_UNIVERSITY, lang))) {
-            st.setInt(1, universityId);
-            rs = st.executeQuery();
+        try (PreparedStatement ps = conn.prepareStatement(String.format(FACULTIES_FOR_UNIVERSITY, lang))) {
+            ps.setInt(1, universityId);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 fList.add(new Faculty.FacultyBuilder()
                         .setId(rs.getInt(1))
@@ -230,9 +230,9 @@ public class JDBCFacultyDao implements FacultyDao {
     public List<Faculty> findFacultiesNameForUniversity(int universityId, String lang) {
         List<Faculty> fList = new ArrayList<>();
         ResultSet rs = null;
-        try (PreparedStatement st = conn.prepareStatement(String.format(FACULTIES_NAMES_FOR_UNIVERSITY, lang))) {
-            st.setInt(1, universityId);
-            rs = st.executeQuery();
+        try (PreparedStatement ps = conn.prepareStatement(String.format(FACULTIES_NAMES_FOR_UNIVERSITY, lang))) {
+            ps.setInt(1, universityId);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 fList.add(new Faculty.FacultyBuilder()
                         .setId(rs.getInt(1))

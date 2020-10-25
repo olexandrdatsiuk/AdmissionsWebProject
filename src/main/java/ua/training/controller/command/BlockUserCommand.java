@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 import ua.training.controller.Attribute;
 import ua.training.exception.db.DBException;
 import ua.training.exception.db.UserNotExistsException;
-import ua.training.model.entity.User;
+import ua.training.model.enumeration.UserStatus;
 import ua.training.model.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +33,7 @@ public class BlockUserCommand implements Command {
             return REDIRECT_TO_BLOCK;
         }
         try {
-            userService.changeStatus(email, User.Status.BLOCKED, (int) req.getSession().getAttribute(Attribute.SESSION_USER_ID));
+            userService.changeStatus(email, UserStatus.BLOCKED, (int) req.getSession().getAttribute(Attribute.SESSION_USER_ID));
         } catch (UserNotExistsException e) {
             CommandUtility.setSession(req.getSession(), MESSAGE_ACTION_USER_NOT_FOUND, SESSION_ERROR_MESSAGE_ACTIVITY);
             return REDIRECT_TO_BLOCK;

@@ -75,6 +75,9 @@ public class SignUpCommand implements Command {
 
         User user = getUserFromForm(req);
 
+        HttpSession session = req.getSession();
+        CommandUtility.setSession(session,user, TRIED_USER_SIGNUP);
+
         if (validateData(user)) {
             logger.info(VALIDATION_FAILED);
             CommandUtility.setSession(req.getSession(), MESSAGE_ACTION_FORM_INCORRECT, SESSION_ERROR_MESSAGE_ACTIVITY);
@@ -83,8 +86,6 @@ public class SignUpCommand implements Command {
 
         user.updatePassword(Encryptor.cryptWithMD5(user.getPassword()));
 
-        HttpSession session = req.getSession();
-        session.setAttribute(TRIED_USER_SIGNUP, user);
         try {
             userService.create(user);
         } catch (DBException e) {

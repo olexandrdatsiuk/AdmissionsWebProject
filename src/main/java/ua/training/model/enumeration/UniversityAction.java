@@ -1,5 +1,13 @@
 package ua.training.model.enumeration;
 
+/**
+ * Represents an enumeration of universities action button.
+ * Each enum contains a key for value in property file to get correct translation on view.
+ *
+ * @author Datsiuk Oleksandr
+ * @version 1.5
+ * @since 1.0
+ */
 public enum UniversityAction {
     ADD("enum.university.action.add"),
     DELETE("enum.university.action.delete"),

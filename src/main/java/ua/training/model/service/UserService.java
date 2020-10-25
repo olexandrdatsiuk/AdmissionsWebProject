@@ -4,6 +4,7 @@ import ua.training.exception.db.DBException;
 import ua.training.model.dao.DaoFactory;
 import ua.training.model.dao.UserDao;
 import ua.training.model.entity.User;
+import ua.training.model.enumeration.UserStatus;
 
 import java.sql.SQLException;
 import java.util.Optional;
@@ -35,7 +36,7 @@ public class UserService {
         }
     }
 
-    public void changeStatus(String email, User.Status status, int userId) throws DBException {
+    public void changeStatus(String email, UserStatus status, int userId) throws DBException {
         try (UserDao userDao = daoFactory.createUserDao()) {
             userDao.changeStatus(email, status, userId);
         }

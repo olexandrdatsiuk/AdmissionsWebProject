@@ -13,4 +13,5 @@ public class Message {
     public static final String USER_SERVICE_ERROR = "User Service error";
     public static final String DAO_EXCEPTION_THROWN = "DAO exception thrown";
     public static final String SQL_HANDLER_TAG_EXCEPTION_THROWN = "Sql handler tag exception thrown";
+    public static final String EXCEPTION_THROWN = "Exception thrown";
 }

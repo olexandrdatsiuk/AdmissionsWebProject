@@ -4,6 +4,16 @@ import ua.training.model.entity.Faculty;
 
 import java.util.Comparator;
 
+/**
+ * Represents an enumeration of faculty comparators.
+ * Each enum contains a key for value in property file
+ * to get correct translation on view and comparator
+ * used to sort list of faculties.
+ *
+ * @author Datsiuk Oleksandr
+ * @version 1.5
+ * @since 1.0
+ */
 public enum FacultyComparator implements Comparator<Faculty> {
     AZ("enum.sort.faculties.a.z") {
         public int compare(Faculty o1, Faculty o2) {

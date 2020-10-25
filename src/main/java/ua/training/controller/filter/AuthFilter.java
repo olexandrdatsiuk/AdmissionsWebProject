@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 import ua.training.controller.Path;
 import ua.training.controller.command.CommandTrack;
 import ua.training.controller.command.CommandUtility;
-import ua.training.model.entity.User.Role;
+import ua.training.model.enumeration.UserRole;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -23,20 +23,20 @@ import static ua.training.controller.command.CommandTrack.*;
 public class AuthFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(AuthFilter.class);
 
-    private static Map<Role, List<String>> commandAccess = new HashMap<>();
-    private static Map<Role, List<String>> pageAccess = new HashMap<>();
+    private static Map<UserRole, List<String>> commandAccess = new HashMap<>();
+    private static Map<UserRole, List<String>> pageAccess = new HashMap<>();
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         logger.debug("Auth filter initialization starts");
 
-        commandAccess.put(Role.GUEST, Arrays.asList(CommandTrack.LOG_IN, CommandTrack.SIGN_UP));
-        commandAccess.put(Role.USER, Arrays.asList(LOG_OUT, CommandTrack.ADD_SUBJECT, CommandTrack.APPLY));
-        commandAccess.put(Role.ADMIN, Arrays.asList(LOG_OUT, BLOCK_USER, UNBLOCK_USER, CommandTrack.ADD_FACULTY, MANAGE_FACULTY, CommandTrack.DELETE_FACULTY, CommandTrack.UPDATE_FACULTY, CHANGE_REQUEST_STATE, CommandTrack.FINALIZE));
+        commandAccess.put(UserRole.GUEST, Arrays.asList(CommandTrack.LOG_IN, CommandTrack.SIGN_UP));
+        commandAccess.put(UserRole.USER, Arrays.asList(LOG_OUT, CommandTrack.ADD_SUBJECT, CommandTrack.APPLY));
+        commandAccess.put(UserRole.ADMIN, Arrays.asList(LOG_OUT, BLOCK_USER, UNBLOCK_USER, CommandTrack.ADD_FACULTY, MANAGE_FACULTY, CommandTrack.DELETE_FACULTY, CommandTrack.UPDATE_FACULTY, CHANGE_REQUEST_STATE, CommandTrack.FINALIZE));
 
-        pageAccess.put(Role.GUEST, Arrays.asList(INDEX, Path.LOG_IN, Path.SIGN_UP));
-        pageAccess.put(Role.USER, Arrays.asList(BASIC, Path.APPLY, SUBJECTS, APPLIES, Path.ADD_SUBJECT));
-        pageAccess.put(Role.ADMIN, Arrays.asList(BASIC, BLOCK, UNBLOCK, MANAGE_UNIVERSITY, REQUESTS, Path.FINALIZE));
+        pageAccess.put(UserRole.GUEST, Arrays.asList(INDEX, Path.LOG_IN, Path.SIGN_UP));
+        pageAccess.put(UserRole.USER, Arrays.asList(BASIC, Path.APPLY, SUBJECTS, APPLIES, Path.ADD_SUBJECT));
+        pageAccess.put(UserRole.ADMIN, Arrays.asList(BASIC, BLOCK, UNBLOCK, MANAGE_UNIVERSITY, REQUESTS, Path.FINALIZE));
 
         logger.debug("Auth filter initialization starts");
     }
@@ -70,13 +70,13 @@ public class AuthFilter implements Filter {
     private void confirmAccess(HttpServletRequest req, HttpServletResponse resp, FilterChain chain, String path) throws IOException, ServletException {
         logger.debug("Access confirmation starts");
 
-        Role role = CommandUtility.getUserRole(req);
+        UserRole role = CommandUtility.getUserRole(req);
 
         logger.debug("This is a " + role);
 
         String forwardUrl = path;
 
-        if (role != Role.GUEST && path.startsWith(role.getDirectory())) {
+        if (role != UserRole.GUEST && path.startsWith(role.getDirectory())) {
             path = path.replaceAll("^" + role.getDirectory(), "");
             forwardUrl = WEB_INF + role.getDirectory() + path;
         }
