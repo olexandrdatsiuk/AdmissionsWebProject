@@ -8,12 +8,20 @@ import ua.training.exception.Message;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Represents a locale filter. This class implements
+ * Filter and overrides the main methods of interface.
+ * LocaleFilter performs chosen user language processing.
+ *
+ * @author Datsiuk Oleksandr
+ * @version 1.5
+ * @since 1.0
+ */
 public class LocaleFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(LocaleFilter.class);
 
@@ -32,7 +40,6 @@ public class LocaleFilter implements Filter {
         logger.debug("Processing of the locale filter starts");
 
         HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse resp = (HttpServletResponse) response;
         HttpSession session = req.getSession();
         String lang = request.getParameter(Attribute.REQUEST_LANG);
 

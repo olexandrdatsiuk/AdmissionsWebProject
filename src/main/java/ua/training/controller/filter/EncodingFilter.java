@@ -7,6 +7,16 @@ import ua.training.exception.Message;
 import javax.servlet.*;
 import java.io.IOException;
 
+/**
+ * Represents an encoding filter. This class implements
+ * Filter and overrides the main methods of interface.
+ * EncodingFilter provides main setting up of content
+ * connected to encoding for data processing.
+ *
+ * @author Datsiuk Oleksandr
+ * @version 1.5
+ * @since 1.0
+ */
 public class EncodingFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(EncodingFilter.class);
 

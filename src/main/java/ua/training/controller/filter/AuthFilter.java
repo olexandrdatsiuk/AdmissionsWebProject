@@ -20,6 +20,16 @@ import static ua.training.controller.AppConst.REGEX_REMOVE_APP_DIRECTORY;
 import static ua.training.controller.Path.*;
 import static ua.training.controller.command.CommandTrack.*;
 
+/**
+ * Represents an auth filter. This class implements
+ * Filter and overrides the main methods of interface.
+ * AuthFilter performs page and command accessing by
+ * user`s role.
+ *
+ * @author Datsiuk Oleksandr
+ * @version 1.5
+ * @since 1.0
+ */
 public class AuthFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(AuthFilter.class);
 
@@ -81,7 +91,7 @@ public class AuthFilter implements Filter {
             forwardUrl = WEB_INF + role.getDirectory() + path;
         }
 
-        if (path.endsWith(".jsp") && pageAccess.get(role).contains(path)) {
+        if (path.endsWith(JSP_EXT) && pageAccess.get(role).contains(path)) {
             logger.info("requested page:" + path);
             logger.info("loading page:" + forwardUrl);
             req.getRequestDispatcher(forwardUrl).forward(req, resp);

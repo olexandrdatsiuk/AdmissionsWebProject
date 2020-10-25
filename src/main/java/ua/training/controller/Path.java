@@ -38,6 +38,7 @@ public class Path {
 
     public static final String CONTEXT = "/AdmissionsWebProject";
     public static final String WEB_INF = "/WEB-INF/";
+    public static final String JSP_EXT = ".jsp";
     public static final String RESOURCE = "resource/";
     public static final String REDIRECTS = "redirect:/";
     public static final String REDIRECT = "redirect:";

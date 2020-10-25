@@ -4,7 +4,10 @@ import org.junit.Test;
 import ua.training.model.dao.RequestDao;
 import ua.training.model.entity.Request;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 

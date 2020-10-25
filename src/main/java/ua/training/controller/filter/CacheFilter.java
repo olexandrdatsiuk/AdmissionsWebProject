@@ -7,6 +7,15 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Represents a cache filter. This class implements
+ * Filter and overrides the main methods of interface.
+ * CacheFilter provides cache control setting.
+ *
+ * @author Datsiuk Oleksandr
+ * @version 1.5
+ * @since 1.0
+ */
 public class CacheFilter implements Filter {
     private static final Logger logger = LogManager.getLogger(CacheFilter.class);
 
